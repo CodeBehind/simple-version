@@ -6,7 +6,7 @@ function init() {
   const version = "1.0.0";
   Deno.writeTextFileSync(fileName, version);
 }
-
+let finalVersion;
 switch (action) {
   case "init": {
     init();
@@ -18,8 +18,8 @@ switch (action) {
       version = Deno.readTextFileSync(fileName);
       const parts = version.split(".");
       parts[2] = (parseInt(parts[2]) + 1).toString();
-      version = parts.join(".");
-      Deno.writeTextFileSync(fileName, version);
+      finalVersion = parts.join(".");
+      Deno.writeTextFileSync(fileName, finalVersion);
     } else {
       init();
     }
@@ -32,8 +32,8 @@ switch (action) {
       const parts = version.split(".");
       parts[2] = "0";
       parts[1] = (parseInt(parts[1]) + 1).toString();
-      version = parts.join(".");
-      Deno.writeTextFileSync(fileName, version);
+      finalVersion = parts.join(".");
+      Deno.writeTextFileSync(fileName, finalVersion);
     } else {
       init();
     }
@@ -47,14 +47,16 @@ switch (action) {
       parts[2] = "0";
       parts[1] = "0";
       parts[0] = (parseInt(parts[0]) + 1).toString();
-      version = parts.join(".");
-      Deno.writeTextFileSync(fileName, version);
+      finalVersion = parts.join(".");
+      Deno.writeTextFileSync(fileName, finalVersion);
     } else {
       init();
     }
     break;
   }
   case "set": {
+    finalVersion = params[0];
     Deno.writeTextFileSync(fileName, params[0]);
   }
 }
+ console.log(finalVersion);
