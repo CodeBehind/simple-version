@@ -59,4 +59,4 @@ switch (action) {
     Deno.writeTextFileSync(fileName, params[0]);
   }
 }
- console.log(finalVersion);
+console.log(finalVersion);
